@@ -5,7 +5,7 @@
                 <span v-if="profile.data.name" :class="[ 'block px-4 py-2 text-sm text-gray-300 font-bold']">{{ profile.data.name }}</span>
                 <div class="">
                     <div v-if="profile.data.name">
-                        <router-link :to="{ name: 'Logout' }" :class="[ 'block px-4 py-2 text-sm text-gray-300 cursor-pointer hover:bg-slate-300']">Log Out</router-link>
+                        <a @click="logout()" class="block px-4 py-2 text-sm text-gray-300 cursor-pointer hover:bg-slate-300">Log Out</a>
                     </div>
                     <div v-else>
                         <router-link :to="{ name: 'Login' }" :class="[ 'block px-4 py-2 text-sm text-gray-300 cursor-pointer hover:bg-slate-300',]">Sign in</router-link>
@@ -17,6 +17,8 @@
 
         <div class="w-11/12">
             <span class="text-white">Creators</span>
+            <router-link v-if="profile.data.name" :to="{ name: 'CreateCreator' }" class="m-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm 
+                                        font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Add Creator</router-link>
             
             <div class="overflow-x-auto">
                 <table class="table-auto w-full">
@@ -45,7 +47,7 @@
                                 {{ creator.books }} / {{ creator.songs }} / {{ creator.films }}
                             </td>
                             <td class="float-right font-medium leading-none text-gray-300 mr-2">
-                                <a v-if="profile.data.name" @click="delete(creator.id)" 
+                                <a v-if="profile.data.name" @click="deleteCreator(creator.id)" 
                                     title="Delete" role="button" aria-expanded="false" tabindex="0" 
                                     class="m-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm 
                                         font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700">
@@ -66,29 +68,40 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </template>
 
 <script setup>
 import { onMounted, computed } from 'vue'
-import { useDefaultData } from '@/stores/index';
 import { useUserStore } from '@/stores/user';
+import { useMediaStore } from '@/stores/media';
 
-const defaultStore = useDefaultData();
+const mediaStore = useMediaStore();
 const userStore = useUserStore();
 
 const creators = computed(() => {
-    return defaultStore.getCreators;
+    return mediaStore.getCreators;
 });
 
 const profile = computed(() => {
     return userStore.getProfile;
 });
 
+async function deleteCreator(id) {
+    try {
+        await mediaStore.deleteCreatorData(id);
+    } catch (error) {
+        alert(error);
+    }
+}
+
+function logout() {
+    userStore.logoutUser();
+}
+
 onMounted(() => {
-    defaultStore.getWelcomeData();
+    mediaStore.getCreatorsData();
 });
 
 </script>

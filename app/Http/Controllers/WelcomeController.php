@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\WelcomeResource;
 use App\Models\Creator;
-use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
 {

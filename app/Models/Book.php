@@ -10,6 +10,7 @@ class Book extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['creator_id', 'title', 'isbn', 'publishing_house', 'language', 'genre'];
 
     
     public function creator()

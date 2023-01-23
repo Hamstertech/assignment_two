@@ -24,6 +24,14 @@ export const useMediaStore = defineStore('mediaStore', {
         }
     },
     actions: {
+        async getCreatorsData() {
+            try {
+                const response = await axiosClient.get(`/api/`);
+                this.creators = response.data.data;
+            } catch (error) {
+                alert(error);
+            }
+        },
         async getCreatorData(id) {
             try {
                 const response = await axiosClient.get(`/api/creator/${id}`);
@@ -32,11 +40,23 @@ export const useMediaStore = defineStore('mediaStore', {
                 alert(error);
             }
         },
-        async postCreatorData() {
-            const payload = this.creator;
+        async postCreatorData(id = null) {
+            const data = this.creator;
+
             try {
-                const response = await axiosClient.post('/api/creator/', {payload});
-                console.log(response);;
+                if(id) {
+                    const response = await axiosClient.put(`/api/creator/${id}`, {data});
+                } else {
+                    const response = await axiosClient.post('/api/creator/', {data});
+                }
+            } catch (error) {
+                alert(error);
+            }
+        },
+        async deleteCreatorData(id) {
+            try {
+                const response = await axiosClient.delete(`/api/creator/${id}`);
+                this.creators = response.data.data;
             } catch (error) {
                 alert(error);
             }

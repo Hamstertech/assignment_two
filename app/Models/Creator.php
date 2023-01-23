@@ -10,7 +10,24 @@ class Creator extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['first_name', 'last_name', 'date_of_birth', 'nationality'];
 
+
+    public static function boot() {
+        parent::boot();
+        
+        self::deleting(function ($model) {
+            $model->books()->each(function ($book) {
+                $book->delete();
+            });
+            $model->films()->each(function ($film) {
+                $film->delete();
+            });
+            $model->songs()->each(function ($song) {
+                $song->delete();
+            });
+        });
+    }
     
     public function books()
     {

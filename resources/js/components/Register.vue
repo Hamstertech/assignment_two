@@ -71,9 +71,11 @@
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/user';
 import { useDefaultData } from '@/stores/index';
+import { useRouter } from 'vue-router';
 
 const defaultStore = useDefaultData();
 const userStore = useUserStore();
+const router = useRouter();
 
 const loading = computed(() => {
     return defaultStore.getLoadingState;
@@ -91,6 +93,7 @@ async function register(ev) {
     ev.preventDefault();
     try {
         await userStore.registerUser(user);
+        router.push({ name: 'MainPage' });
     } catch (error) {
         alert(error);
     }

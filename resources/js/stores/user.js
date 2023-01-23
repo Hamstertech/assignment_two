@@ -7,7 +7,8 @@ export const useUserStore = defineStore('user', {
         user: {
             data: {},
             token: null
-        }
+        },
+        errors: {}
     }),
     getters: {
         getProfile(state) {

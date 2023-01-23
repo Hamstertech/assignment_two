@@ -10,6 +10,7 @@ class Song extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['creator_id', 'name', 'duration', 'record_label', 'tempo', 'genre'];
 
 
     public function creator()

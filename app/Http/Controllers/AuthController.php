@@ -13,11 +13,12 @@ class AuthController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
+        $data = $request->validated();
         /** @var \App\Models\User $user */
         $user = User::create([
-            'name' => $request['data']['name'],
-            'email' => $request['data']['email'],
-            'password' => bcrypt($request['data']['password']),
+            'name' => $data['data']['name'],
+            'email' => $data['data']['email'],
+            'password' => bcrypt($data['data']['password']),
         ]);
         
         $token = $user->createToken('main')->plainTextToken;
@@ -31,7 +32,8 @@ class AuthController extends Controller
 
     public function login(LoginUserRequest $request)
     {
-        if (!Auth::attempt($request['data'])) {
+        $data = $request->validated();
+        if (!Auth::attempt($data['data'])) {
             return response([
                 'error' => 'Email or Password might be wrong'
             ], 422);
