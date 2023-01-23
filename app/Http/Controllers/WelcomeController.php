@@ -15,7 +15,6 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $names = $this->books->pluck('title')->toArray() + $this->films->pluck('title')->toArray() + $this->songs->pluck('name')->toArray();
         return WelcomeResource::collection(Creator::with(['songs', 'films', 'books'])->get());
     }
 
