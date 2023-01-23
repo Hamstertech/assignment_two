@@ -24,7 +24,6 @@ class WelcomeResource extends JsonResource
             'books' => $this->books->count() ?? 0,
             'songs' => $this->songs->count() ?? 0,
             'films' => $this->films->count() ?? 0,
-            // 'media' => $names,
         ];
     }
 }
