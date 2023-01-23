@@ -14,6 +14,7 @@ export const useMediaStore = defineStore('mediaStore', {
             songs: [],
             films: [],
         },
+        mediaNames: [],
     }),
     getters: {
         getCreators(state) {

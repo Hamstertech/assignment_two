@@ -4,15 +4,16 @@
             Register new user
         </h2>
     </div>
+
     <div class="relative flex items-top justify-center">
         <form class="w-96 mt-8 space-y-6" @submit="register">
-            <!-- <div v-if="Object.keys(errors).length" class="flex-col items-stretch text-sm flex justify-between py-3 px-5 bg-red-500 text-white rounded">
-                <div v-for="(field, i) of Object.keys(errors)" :key="i">
-                    <div v-for="(error, index) of errors[field] || []" :key="index">
+            <div v-if="errors" class="flex-col items-stretch text-sm flex justify-between py-3 px-5 bg-red-500 text-white rounded">
+                <div v-for="(field, i) of errors" :key="i">
+                    <div v-for="(error, index) of field" :key="index">
                         * {{ error }}
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
@@ -89,11 +90,15 @@ const user = {
     token: '',
 };
 
+const errors = computed(() => {
+    return userStore.getErrors;
+});
+
 async function register(ev) {
     ev.preventDefault();
     try {
         await userStore.registerUser(user);
-        router.push({ name: 'MainPage' });
+        // router.push({ name: 'MainPage' });
     } catch (error) {
         alert(error);
     }

@@ -24,7 +24,7 @@
                 <div>
                     <label for="password" class="sr-only">
                         Password
-                        </label>
+                    </label>
                     <input id="password" name="password" type="password" autocomplete="password" required v-model="user.password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
                 </div>
             </div>
@@ -70,8 +70,8 @@ const loading = computed(() => {
 async function login(ev) {
     ev.preventDefault();
     try {
-        await userStore.loginUser(user);
-        router.push({ name: 'MainPage' });
+        const response = await userStore.loginUser(user);
+        //router.push({ name: 'MainPage' });
     } catch (error) {
         alert(error);
     }
