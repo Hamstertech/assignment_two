@@ -38,6 +38,7 @@ export const useUserStore = defineStore('user', {
                 const response = await axiosClient.post('/api/login', {data});
                 this.user.data = response.data.user;
                 this.user.token = response.data.token;
+                this.router.push({ name: 'MainPage' });
             } catch (error) {
                 alert(error);
             }
@@ -45,10 +46,9 @@ export const useUserStore = defineStore('user', {
         async logoutUser() {
             try {
                 const response = await axiosClient.post('/api/logout');
-                // router.push({ name: 'MainPage' });
-                // this.user.data = {};
-                // this.user.token = null;
-                console.log(response);
+                this.user.data = {};
+                this.user.token = null;
+                this.router.push({ name: 'MainPage' });
             } catch (error) {
                 alert(error);
             }
