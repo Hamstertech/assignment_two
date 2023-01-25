@@ -14,4 +14,4 @@
 # Local setup (Working on bugs)
 - In the ".env" file "APP_URL" should contain the url to the local dev BUT without "http://" and "https://". The cause of this bug is that the vite.config.js file is using custom code to work with local named urls.
 
-- Further more, add VITE_APP_URL="${APP_URL}" VITE_APP_SECURE="http://" (http for local https for production) and for this specific project, a "SECURITY_TOKEN" with whatever you want when registering users. 
+- Further more, add VITE_APP_URL="${APP_URL}" VITE_APP_SECURE="http://" (http for local https for production) and for this specific project, a "SECURITY_TOKEN" with whatever integer you want when registering users. 
