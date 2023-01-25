@@ -22,7 +22,7 @@ export const useUserStore = defineStore('user', {
             try {
                 this.errors = null;
                 const response = await axiosClient.post('/api/register', {data});
-                if(response.status !== 200) {
+                if(response.status === 200) {
                     this.user.data = response.data.user;
                     this.user.token = response.data.token;
                     this.router.push({ name: 'MainPage' });
